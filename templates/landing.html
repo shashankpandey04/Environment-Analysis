@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <title>Environmental Compliance Assessment</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            {% if 'username' in session %}
+                <li><a href="/data_entry">Data Entry</a></li>
+                <li><a href="/data_display">Data Display</a></li>
+                <li><a href="/logout">Logout</a></li>
+            {% else %}
+                <li><a href="/data_display">Data Display</a></li>
+                <li><a href="/login">Login</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    <h1>Welcome to Environmental Compliance Assessment</h1>
+    <p class="para">BRUH</p>
+</body>
+</html>

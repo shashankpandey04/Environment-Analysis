@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <title>Data Entry</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            {% if 'username' in session %}
+                <li><a href="/data_entry">Data Entry</a></li>
+                <li><a href="/data_display">Data Display</a></li>
+                <li><a href="/logout">Logout</a></li>
+            {% else %}
+                <li><a href="/data_display">Data Display</a></li>
+                <li><a href="/login">Login</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    <h1>Data Entry</h1>
+    <div class="parent-contain">
+        <div class="form-container">
+            <form action="/data_entry_submit" method="POST">
+                <label for="location">Location:</label>
+                <select id="location" name="location" required>
+                    <option value="New Delhi">New Delhi</option>
+                    <option value="Jalandhar">Jalandhar</option>
+                </select>
+                <br>
+                <input type="hidden" id="compliance_type" name="compliance_type">
+                <label for="compliance_details">Compliance Details:</label>
+                <input type="text" id="compliance_details" name="compliance_details" required><br>
+                <button type="button" onclick="setComplianceType('Air Pollution')">Air Pollution</button>
+                <button type="button" onclick="setComplianceType('Water Pollution')">Water Pollution</button>
+                <button type="button" onclick="setComplianceType('Green Carpet Area')">Green Carpet Area</button>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        function setComplianceType(type) {
+            document.getElementById('compliance_type').value = type;
+        }
+    </script>
+</body>
+<footer>
+    ©️ 2024 Environmental Compliance Assessment
+</footer>
+</html>
