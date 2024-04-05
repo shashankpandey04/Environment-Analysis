@@ -13,9 +13,14 @@
             {% if 'username' in session %}
                 <li><a href="/data_entry">Data Entry</a></li>
                 <li><a href="/data_display">Data Display</a></li>
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/issues">Active Issues</a></li>
+                <li><a href="/aboutus">About Us</a></li> 
                 <li><a href="/logout">Logout</a></li>
             {% else %}
                 <li><a href="/data_display">Data Display</a></li>
+                <li><a href="/report">Report Issue</a></li>
+                <li><a href="/aboutus">About Us</a></li>    
                 <li><a href="/login">Login</a></li>
             {% endif %}
         </ul>
@@ -26,7 +31,8 @@
         <select id="category" name="category">
             <option value="Air Pollution">Air Pollution</option>
             <option value="Water Pollution">Water Pollution</option>
-            <option value="Green Carpet Area">Green Carpet Area</option>
+            <option value="Waste Management">Waste Management</option>
+            <option value="Hazardous Materials Handling">Hazardous Materials Handling</option>
         </select>
         <br>
         <label for="location">Select Location:</label>

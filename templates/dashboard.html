@@ -13,14 +13,20 @@
             {% if 'username' in session %}
                 <li><a href="/data_entry">Data Entry</a></li>
                 <li><a href="/data_display">Data Display</a></li>
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/issues">Active Issues</a></li>
+                <li><a href="/aboutus">About Us</a></li> 
                 <li><a href="/logout">Logout</a></li>
             {% else %}
                 <li><a href="/data_display">Data Display</a></li>
+                <li><a href="/report">Report Issue</a></li>
+                <li><a href="/aboutus">About Us</a></li>    
                 <li><a href="/login">Login</a></li>
             {% endif %}
         </ul>
     </nav>
-    <h1>Welcome to the Dashboard</h1>
-    <p>Dashboard content goes here...</p>
+    <h1>Dashboard</h1>
+    <p>Welcome {{ session['username'] }} </p>
 </body>
+
 </html>

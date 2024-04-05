@@ -1,4 +1,7 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session,flash
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 import mysql.connector
 
 app = Flask(__name__)
@@ -10,12 +13,12 @@ db = mysql.connector.connect(
     password="root",
     database="che"
 )
+cursor = db.cursor()
+
 def is_admin(username):
-    cursor = db.cursor()
     query = "SELECT admin FROM users WHERE username = %s"
     cursor.execute(query, (username,))
     result = cursor.fetchone()
-    cursor.close()
     if result and result[0] == 1:
         return True
     else:
@@ -24,6 +27,10 @@ def is_admin(username):
 @app.route('/')
 def landing():
     return render_template('landing.html')
+
+@app.route('/report')
+def report():
+    return render_template('report.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -42,7 +49,8 @@ def login():
             else:
                 return redirect(url_for('data_display'))
         else:
-            return "Invalid username or password"
+            flash("Invalid credentials. Please try again.", "error")
+            return redirect(url_for('login'))
     return render_template('login.html')
 
 @app.route('/logout')
@@ -57,21 +65,21 @@ def dashboard():
         return render_template('dashboard.html', username=username, admin=is_admin(username))
     else:
         return redirect(url_for('login'))
-    
-@app.route('/profile')
-def profile():
+
+@app.route('/issues')
+def issues():
     if 'username' in session:
         username = session['username']
-        return render_template('landing.html', username=username, admin=is_admin(username))
+        return render_template('issues.html')
     else:
         return redirect(url_for('login'))
-
+    
 @app.route('/data_entry')
 def data_entry():
     if 'username' in session and is_admin(session['username']):
         return render_template('data_entry.html')
     else:
-        return redirect(url_for('dashboard'))
+        return render_template("unauth.html")
 
 @app.route('/data_entry_submit', methods=['POST'])
 def data_entry_submit():
@@ -111,6 +119,56 @@ def data_display():
         cursor.close()
 
     return render_template('data_display.html', category=category, location=location, locations=locations, assessments=assessments)
+
+@app.route('/aboutus')
+def aboutus():
+    return render_template('aboutus.html')
+
+def send_mailtrap_email(receiver_email, ticket_id, location, issue_type, description, contact):
+    sender_email = "mailtrap@demomailtrap.com"
+    smtp_server = "live.smtp.mailtrap.io"
+    smtp_port = 587
+    smtp_username = "api"
+    smtp_password = "6ce7d220d66442dc01a6ced34dd866d3"
+    message = MIMEMultipart()
+    message["From"] = sender_email
+    message["To"] = receiver_email
+    message["Subject"] = "Issue Report Confirmation"
+    body = f"""\
+    Your issue has been successfully reported.\n\n
+    Ticket ID: {ticket_id}\n
+    Location: {location}\n
+    Issue Type: {issue_type}\n
+    Description: {description}\n
+    Contact: {contact}
+    """
+    message.attach(MIMEText(body, "plain"))
+    with smtplib.SMTP(smtp_server, smtp_port) as server:
+        server.starttls()
+        server.login(smtp_username, smtp_password)
+        server.sendmail(sender_email, receiver_email, message.as_string())
+
+@app.route("/submit-issue", methods=['POST'])
+def report_issue():
+    if request.method == 'POST':
+        location = request.form['location']
+        issue_type = request.form['issue_type']
+        description = request.form['description']
+        contact = request.form['contact']
+        email = request.form['email']
+        try:
+            cursor.execute("INSERT INTO issues (location, issue_type, description, contact, email) VALUES (%s, %s, %s, %s, %s)", (location, issue_type, description, contact, email))
+            db.commit()
+            ticket_id = cursor.lastrowid
+            send_mailtrap_email(email, ticket_id, location, issue_type, description, contact)
+            return render_template('ticket_created.html', ticket_id=ticket_id, mail_id=email)
+        except Exception as e:
+            db.rollback()
+            return "Error: " + str(e)
+        
+@app.route("/ticket_created/<ticket_id>")
+def ticket_created(ticket_id,mail_id):
+    return render_template('ticket_created.html', ticket_id=ticket_id,mail_id=mail_id)
 
 @app.errorhandler(404)
 def page_not_found(e):

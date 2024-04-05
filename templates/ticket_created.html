@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Created</title>
+    <link rel="stylesheet" href="/static/style2.css"> <!-- Link to the CSS file -->
+</head>
+<style>
+    a {
+        color: white;
+        text-align: center;
+        display: block;
+        margin-top: 10px;
+    
+    }
+</style>
+<body>
+    <h1 style="color: aqua; text-align: center;">Ticket Created</h1>
+    <p style="color:white; text-align: center;">Your issue has been successfully reported.</p>
+    <p style="color:white; text-align: center;">Your ticket ID is: <strong>{{ ticket_id }}</strong>.</p>
+    <p style="color:white; text-align: center;">Mail I'd: <strong>{{mail_id}}<strong></p>
+    <p style="color:white; text-align: center;">Our team will get back to you shortly.</p>
+    <p style="color:white; text-align: center;">Thank you for reporting the issue.</p>
+    <a href="/report" style="color: white; text-align: center;">Report Another Issue</a>
+    <a href="/" style="color: white; text-align: center;">Home</a>
+</body>
+</html>
