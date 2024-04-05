@@ -64,16 +64,18 @@ def dashboard():
         username = session['username']
         return render_template('dashboard.html', username=username, admin=is_admin(username))
     else:
-        return redirect(url_for('login'))
+        return render_template("unauth.html")
 
 @app.route('/issues')
 def issues():
     if 'username' in session:
-        username = session['username']
-        return render_template('issues.html')
+        cursor.execute("SELECT * FROM issues WHERE status = 'false'")
+        active_issues = cursor.fetchall()
+        print(active_issues)
+        return render_template('issues.html', issues=active_issues)
     else:
-        return redirect(url_for('login'))
-    
+        return render_template("unauth.html")
+
 @app.route('/data_entry')
 def data_entry():
     if 'username' in session and is_admin(session['username']):
@@ -157,10 +159,10 @@ def report_issue():
         contact = request.form['contact']
         email = request.form['email']
         try:
-            cursor.execute("INSERT INTO issues (location, issue_type, description, contact, email) VALUES (%s, %s, %s, %s, %s)", (location, issue_type, description, contact, email))
+            cursor.execute("INSERT INTO issues (location, issue_type, description, contact, email,status) VALUES (%s, %s, %s, %s, %s , %s)", (location, issue_type, description, contact, email,'false'))
             db.commit()
             ticket_id = cursor.lastrowid
-            send_mailtrap_email(email, ticket_id, location, issue_type, description, contact)
+            #send_mailtrap_email(email, ticket_id, location, issue_type, description, contact)
             return render_template('ticket_created.html', ticket_id=ticket_id, mail_id=email)
         except Exception as e:
             db.rollback()

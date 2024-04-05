@@ -12,7 +12,6 @@
             <li><a href="/">Home</a></li>
             {% if 'username' in session %}
                 <li><a href="/data_entry">Data Entry</a></li>
-                <li><a href="/data_display">Data Display</a></li>
                 <li><a href="/dashboard">Dashboard</a></li>
                 <li><a href="/issues">Active Issues</a></li>
                 <li><a href="/aboutus">About Us</a></li> 
@@ -25,5 +24,42 @@
             {% endif %}
         </ul>
     </nav>
+    <div class="container">
+        {% if issues %}
+                <h2>Active Issues</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Ticket ID</th>
+                            <th>Location</th>
+                            <th>Issue Type</th>
+                            <th>Description</th>
+                            <th>Contact</th>
+                            <th>Email</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for issue in issues %}
+                            <tr>
+                                <td>{{ issue.ticket_id }}</td>
+                                <td>{{ issue.location }}</td>
+                                <td>{{ issue.issue_type }}</td>
+                                <td>{{ issue.description }}</td>
+                                <td>{{ issue.contact }}</td>
+                                <td>{{ issue.email }}</td>
+                                <td>
+                                    <form action="/resolve_issue/{{ issue.ticket_id }}" method="post">
+                                        <button type="submit">Mark as Resolved</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+        {% else %}
+            <h2>No Active Issues</h2>
+        {% endif %}
+    </div>
 </body>
 </html>
