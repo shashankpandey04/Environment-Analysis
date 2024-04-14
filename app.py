@@ -62,20 +62,38 @@ def logout():
 def dashboard():
     if 'username' in session:
         username = session['username']
-        return render_template('dashboard.html', username=username, admin=is_admin(username))
+        cursor = db.cursor()
+        cursor.execute("SELECT COUNT(*) FROM issues")
+        total_reported_issues = cursor.fetchone()[0]
+        cursor.execute("SELECT COUNT(*) FROM issues WHERE status = 'false'")
+        total_unsolved_issues = cursor.fetchone()[0]
+        return render_template('dashboard.html', username=username, admin=is_admin(username), total_reported_issues=total_reported_issues, total_unsolved_issues=total_unsolved_issues)
     else:
         return render_template("unauth.html")
+
+@app.route('/laws')
+def laws():
+    return render_template('laws.html')
 
 @app.route('/issues')
 def issues():
     if 'username' in session:
         cursor.execute("SELECT * FROM issues WHERE status = 'false'")
         active_issues = cursor.fetchall()
-        print(active_issues)
+        print(active_issues)  # Check to see the data in console
         return render_template('issues.html', issues=active_issues)
     else:
         return render_template("unauth.html")
 
+@app.route('/resolve_issue/<int:ticket_id>', methods=['POST'])
+def resolve_issue(ticket_id):
+    if 'username' in session:
+        cursor.execute("DELETE FROM issues WHERE ticket_id = %s", (ticket_id,))
+        db.commit()
+        return redirect('/issues')
+    else:
+        return render_template("unauth.html")
+    
 @app.route('/data_entry')
 def data_entry():
     if 'username' in session and is_admin(session['username']):
@@ -131,7 +149,7 @@ def send_mailtrap_email(receiver_email, ticket_id, location, issue_type, descrip
     smtp_server = "live.smtp.mailtrap.io"
     smtp_port = 587
     smtp_username = "api"
-    smtp_password = "6ce7d220d66442dc01a6ced34dd866d3"
+    smtp_password = "token"
     message = MIMEMultipart()
     message["From"] = sender_email
     message["To"] = receiver_email
@@ -162,7 +180,7 @@ def report_issue():
             cursor.execute("INSERT INTO issues (location, issue_type, description, contact, email,status) VALUES (%s, %s, %s, %s, %s , %s)", (location, issue_type, description, contact, email,'false'))
             db.commit()
             ticket_id = cursor.lastrowid
-            #send_mailtrap_email(email, ticket_id, location, issue_type, description, contact)
+            send_mailtrap_email(email, ticket_id, location, issue_type, description, contact)
             return render_template('ticket_created.html', ticket_id=ticket_id, mail_id=email)
         except Exception as e:
             db.rollback()

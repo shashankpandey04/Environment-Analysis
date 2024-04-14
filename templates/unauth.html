@@ -1,41 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="static/style.css">
-    <title>No Access</title>
-</head>
-<style>
-    body {
-        background-image: url('https://miro.medium.com/v2/resize:fit:1400/1*5OIZPpRVTmzC5kt_KneHIw.gif');
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        background-position: center;
-    }
-</style>
-<body>
-    <nav>
-        <ul>
-            <li><a href="/">Home</a></li>
-            {% if 'username' in session %}
-                <li><a href="/data_entry">Data Entry</a></li>
-                <li><a href="/data_display">Data Display</a></li>
-                <li><a href="/dashboard">Dashboard</a></li>
-                <li><a href="/issues">Active Issues</a></li>
-                <li><a href="/aboutus">About Us</a></li> 
-                <li><a href="/logout">Logout</a></li>
-            {% else %}
-                <li><a href="/data_display">Data Display</a></li>
-                <li><a href="/report">Report Issue</a></li>
-                <li><a href="/aboutus">About Us</a></li>    
-                <li><a href="/login">Login</a></li>
-            {% endif %}
-        </ul>
-    </nav>
+{% extends "base.html" %}
+
+{% block title %}
+    No Access - Environmental Compliance Assessment
+{% endblock %}
+
+{% block content %}
+    <style>
+        body {
+            background-image: url('https://miro.medium.com/v2/resize:fit:1400/1*5OIZPpRVTmzC5kt_KneHIw.gif');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+        }
+    </style>
     <br><br>
-</body>
-<footer>
-    ©️ 2024 Environmental Compliance Assessment
-</footer>
-</html>
+{% endblock %}
+
+{% block footer %}
+    <footer>
+        ©️ 2024 Environmental Compliance Assessment
+    </footer>
+{% endblock %}

@@ -1,38 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/style2.css"> <!-- Link to the CSS file -->
-    <title>Report Issue</title>
-</head>
-<body>
-    <nav>
-        <ul>
-            <li><a href="/">Home</a></li>
-            {% if 'username' in session %}
-                <li><a href="/data_entry">Data Entry</a></li>
-                <li><a href="/data_display">Data Display</a></li>
-                <li><a href="/dashboard">Dashboard</a></li>
-                <li><a href="/issues">Active Issues</a></li>
-                <li><a href="/aboutus">About Us</a></li> 
-                <li><a href="/logout">Logout</a></li>
-            {% else %}
-                <li><a href="/data_display">Data Display</a></li>
-                <li><a href="/report">Report Issue</a></li>
-                <li><a href="/aboutus">About Us</a></li>    
-                <li><a href="/login">Login</a></li>
-            {% endif %}
-        </ul>
-    </nav>
+{% extends "base.html" %}
+
+{% block title %}
+    Report Issue - Environmental Compliance Assessment
+{% endblock %}
+
+{% block content %}
     <div class="login-box">
         <h2>Report Compliance Issue</h2>
         <form action="/submit-issue" method="POST" id="report-issue">
             <div class="user-box">
-                <select name="location" id="location"><br>
-                    <option value="New Delhi">New Delhi</option>
-                    <option value="Jalandhar">Jalandhar</option>
-                </select>
+                <input name="location" id="location" type="text" required placeholder="Location">
             </div>
             <div class="user-box">
                 <select id="issue_type" name="issue_type">
@@ -62,8 +39,10 @@
             </a>
         </form>
     </div>
-</body>
-<footer>
-    ©️ 2024 Environmental Compliance Assessment
-</footer>
-</html>
+{% endblock %}
+
+{% block footer %}
+    <footer>
+        ©️ 2024 Environmental Compliance Assessment
+    </footer>
+{% endblock %}

@@ -3,49 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/style.css">
-    <title>Environmental Compliance Assessment</title>
+    <title>Home</title>
+    <link rel="stylesheet" href="/static/style2.css"/>
 </head>
+<script>
+        window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
+    document.getElementById("navbar").style.padding = "30px 10px";
+    document.getElementById("logo").style.fontSize = "25px";
+  } else {
+    document.getElementById("navbar").style.padding = "80px 10px";
+    document.getElementById("logo").style.fontSize = "35px";
+  }
+}
+</script>
 <body>
-    <nav>
-        <ul>
-            <li><a href="/">Home</a></li>
+    <div id="navbar">
+        <a href="#default" id="logo">Environmental Compliance</a>
+        <div id="navbar-right">
+            <a href="/">Home</a>
             {% if 'username' in session %}
-                <li><a href="/data_entry">Data Entry</a></li>
-                <li><a href="/dashboard">Dashboard</a></li>
-                <li><a href="/issues">Active Issues</a></li>
-                <li><a href="/aboutus">About Us</a></li> 
-                <li><a href="/logout">Logout</a></li>
+                <a href="/data_entry">Data Entry</a>
+                <a href="/dashboard">Dashboard</a>
+                <a href="/issues">Active Issues</a>
+                <a href="/laws">Environmental Laws</a>
+                <a href="/aboutus">About Us</a> 
+                <a href="/logout">Logout</a>
             {% else %}
-                <li><a href="/data_display">Data Display</a></li>
-                <li><a href="/report">Report Issue</a></li>
-                <li><a href="/aboutus">About Us</a></li>    
-                <li><a href="/login">Login</a></li>
+                <a href="/data_display">Data Display</a>
+                <a href="/report">Report Issue</a>
+                <a href="/laws">Environmental Laws</a>
+                <a href="/aboutus">About Us</a>    
+                <a href="/login">Login</a>
             {% endif %}
-        </ul>
-    </nav>
-    <h1>Welcome to Environmental Compliance Assessment</h1>
-    <div class="image-land-container">
-        <img src="https://i.pinimg.com/originals/6a/2a/49/6a2a490fa979f32f6337212b18e65e1d.gif" class="image-land">
-        <div class="image-text">Environmental Compliance Assessment is a web application that allows users to enter and 
-            display environmental compliance data.<br>
-            Report Issues & Know about environmental laws.<br>
-            Many more...
         </div>
     </div>
-    <hr class="hr-decorative">
-    <div class="section">
-        <h2>Environmental Compliance</h2>
-        <p>Environmental compliance refers to the state of conforming to environmental laws, regulations, standards, and other requirements aimed at protecting the environment and public health. It involves ensuring that activities, processes, and operations do not harm the environment and comply with established guidelines.</p>
-        <p>Key aspects of environmental compliance include:</p>
-        <ul>
-            <li>Understanding and adhering to environmental laws and regulations applicable to your industry or operation.</li>
-            <li>Implementing measures to prevent pollution and minimize environmental impact.</li>
-            <li>Regular monitoring, reporting, and documentation of environmental performance.</li>
-        </ul>
-        <p>Environmental compliance is crucial for sustainable development, preserving natural resources, and safeguarding ecosystems. Non-compliance can lead to legal consequences, fines, damage to reputation, and environmental harm.</p>
-    </div>
-    <hr class="hr-decorative">
-    <p>©️ 2024 Environmental Compliance Assessment</p>
+    <div class="home">
+        <div class="bgimg-1">
+            <div class="caption">
+            <span class="border">Environmental Compliance Assessment</span>
+            <p style="color: white;">Welcome to Environmental Compliance Website.</p>
+            <p style="color: white;">A one stop site for all Environmental Issues and Tracking!</p>
+            </div>
+            </div>
+            
+            <div style="color: #777;background-color:white;text-align:center;padding:50px 80px;text-align: justify;">
+                <h3 style="text-align:center;">What we do?</h3>
+                <p>We here at Environmental Compliance take care of all the public Compalints made from out portal and make sure that everyone is getting correct and latest information about pollution levels. And for this we offer many features which are mainly absed on crowdwork. And this helps us to gather latest and filter out latest data.</p>
+            </div>
+
+            <div class="bgimg-2">
+                <div class="caption">
+                <span class="border" style="background-color:transparent;font-size:25px;color: #f7f7f7;">What We Offer?</span>
+                </div>
+            </div>
+
+            <div style="color: #777;background-color:white;text-align:center;padding:50px 80px;text-align: justify;">
+            <h3 style="text-align:center;">Various Exclusive features:</h3>
+            <p>Our website offers many various features like:</p>
+            <ul>
+                <li>Effective Compalint Logging Portal</li>
+                <li>Access to latest data of Pollution Levels</li>
+                <li>Ability to contribute in Logging Data.</li>
+            </ul>
+            </div>
+            
+            <div class="bgimg-3">
+            <div class="caption">
+            <span class="border" style="background-color:transparent;font-size:25px;color: #f7f7f7;">What to Expect?</span>
+            </div>
+            </div>
+            
+            <div style="color: #777;background-color:white;text-align:center;padding:50px 80px;text-align: justify;">
+            <h3 style="text-align:center;">We always try that you get best experience</h3>
+            <p>As most of the websites are not a one stop solution for logging Compalints and check recent data of pollution levels. Here at Environmental Compliance make sure that our Environment stays safe and issues are handled effectively. Which inlcude reporting indistries for breaking Environmental laws.</p>
+            </div>
+            
+            <div class="bgimg-1">
+            <div class="caption">
+            <span class="border">Thanks for Reading</span>
+            </div>
+        </div>
+    </div>      
 </body>
 </html>
+

@@ -1,38 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/style.css">
-    <title>Error 404</title>
-</head>
-<style>
-    body{
-        background-image: url("https://miro.medium.com/v2/resize:fit:1400/1*zE2qnVTJehut7B8P2aMn3A.gif");
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        background-position: center;
-    }
-</style>
-<body>
-    <nav>
-        <ul>
-            <li><a href="/">Home</a></li>
-            {% if 'username' in session %}
-                <li><a href="/data_entry">Data Entry</a></li>
-                <li><a href="/data_display">Data Display</a></li>
-                <li><a href="/dashboard">Dashboard</a></li>
-                <li><a href="/issues">Active Issues</a></li>
-                <li><a href="/aboutus">About Us</a></li> 
-                <li><a href="/logout">Logout</a></li>
-            {% else %}
-                <li><a href="/data_display">Data Display</a></li>
-                <li><a href="/report">Report Issue</a></li>
-                <li><a href="/aboutus">About Us</a></li>    
-                <li><a href="/login">Login</a></li>
-            {% endif %}
-        </ul>
-    </nav>
-</body>
+{% extends "base.html" %}
 
-</html>
+{% block title %}
+    Error 404
+{% endblock %}
+
+{% block content %}
+    <style>
+        body {
+            background-image: url("https://miro.medium.com/v2/resize:fit:1400/1*zE2qnVTJehut7B8P2aMn3A.gif");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+        }
+    </style>
+    <h1>Error 404 - Page Not Found</h1>
+    <p>The page you are looking for does not exist.</p>
+{% endblock %}

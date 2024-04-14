@@ -3,29 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/style.css">
-    <title>Dashboard</title>
+    <title>Laws | Environmental Compliance</title>
+    <link rel="stylesheet" href="/static/style2.css"/>
 </head>
-<body>
-    <nav>
-        <ul>
-            <li><a href="/">Home</a></li>
-            {% if 'username' in session %}
-                <li><a href="/data_entry">Data Entry</a></li>
-                <li><a href="/dashboard">Dashboard</a></li>
-                <li><a href="/issues">Active Issues</a></li>
-                <li><a href="/aboutus">About Us</a></li> 
-                <li><a href="/logout">Logout</a></li>
-            {% else %}
-                <li><a href="/data_display">Data Display</a></li>
-                <li><a href="/report">Report Issue</a></li>
-                <li><a href="/aboutus">About Us</a></li>    
-                <li><a href="/login">Login</a></li>
-            {% endif %}
-        </ul>
-    </nav>
-    <h1>Dashboard</h1>
-    <p>Welcome {{ session['username'] }} </p>
-</body>
+<script>
+    window.onscroll = function() {scrollFunction()};
 
+    function scrollFunction() {
+        if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
+            document.getElementById("navbar").style.padding = "30px 10px";
+            document.getElementById("logo").style.fontSize = "25px";
+        } else {
+            document.getElementById("navbar").style.padding = "80px 10px";
+            document.getElementById("logo").style.fontSize = "35px";
+        }
+    }
+</script>
+<body>
+    <div id="navbar">
+        <a href="#default" id="logo">Environmental Compliance</a>
+        <div id="navbar-right">
+            <a href="/">Home</a>
+            {% if 'username' in session %}
+                <a href="/data_entry">Data Entry</a>
+                <a href="/dashboard">Dashboard</a>
+                <a href="/issues">Active Issues</a>
+                <a href="/laws">Environmental Laws</a>
+                <a href="/aboutus">About Us</a> 
+                <a href="/logout">Logout</a>
+            {% else %}
+                <a href="/data_display">Data Display</a>
+                <a href="/report">Report Issue</a>
+                <a href="/laws">Environmental Laws</a>
+                <a href="/aboutus">About Us</a>    
+                <a href="/login">Login</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="home">
+        <div class="bgimg-7">
+            <div class="caption">
+            <span class="border">Dashboard</span>
+            <p style="color: rgb(0, 0, 0);">Welcome {% if 'username' in session %}{{ session['username'] }}{% endif %}</p>
+            </div>
+        </div>
+        <div style="color: #777;background-color:white;text-align:center;padding:50px 80px;text-align: justify;">
+            <h3 style="text-align:center;">Total issues reported: </h3>
+            <p style="text-align: center;">{{ total_reported_issues }}</p>
+        </div>
+        <div class="bgimg-2">
+            <div class="caption">
+            <span class="border">Total unsolved issues: </span>
+            <p style="color: rgb(0, 0, 0);">{{ total_unsolved_issues }}</p>
+            </div>
+        </div>
+        <div style="color: #777;background-color:white;text-align:center;padding:50px 80px;text-align: justify;">
+            <h3 style="text-align:center;">Active Issues</h3>
+            <a href="{{ url_for('issues') }}"><p style="text-align: center; color: rgb(0, 0, 255);">Click Here to View</p></a>
+        </div>
+    </div>      
+</body>
 </html>

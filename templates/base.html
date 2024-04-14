@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    <div id="navbar">
+        <a href="#default" id="logo">Environmental Compliance</a>
+        <div id="navbar-right">
+            <a href="/">Home</a>
+            {% if 'username' in session %}
+                <a href="/data_entry">Data Entry</a>
+                <a href="/dashboard">Dashboard</a>
+                <a href="/issues">Active Issues</a>
+                <a href="/laws">Environmental Laws</a>
+                <a href="/aboutus">About Us</a> 
+                <a href="/logout">Logout</a>
+            {% else %}
+                <a href="/data_display">Data Display</a>
+                <a href="/report">Report Issue</a>
+                <a href="/laws">Environmental Laws</a>
+                <a href="/aboutus">About Us</a>    
+                <a href="/login">Login</a>
+            {% endif %}
+        </div>
+    </div>
+    <hr class="hr-pad">
+    <script>
+        window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
+    document.getElementById("navbar").style.padding = "30px 10px";
+    document.getElementById("logo").style.fontSize = "25px";
+  } else {
+    document.getElementById("navbar").style.padding = "80px 10px";
+    document.getElementById("logo").style.fontSize = "35px";
+  }
+}
+    </script>
+
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>

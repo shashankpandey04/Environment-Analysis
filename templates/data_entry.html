@@ -1,43 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/style.css">
-    <title>Data Entry</title>
-</head>
-<body>
-    <nav>
-        <ul>
-            <li><a href="/">Home</a></li>
-            {% if 'username' in session %}
-                <li><a href="/data_entry">Data Entry</a></li>
-                <li><a href="/dashboard">Dashboard</a></li>
-                <li><a href="/issues">Active Issues</a></li>
-                <li><a href="/aboutus">About Us</a></li> 
-                <li><a href="/logout">Logout</a></li>
-            {% else %}
-                <li><a href="/data_display">Data Display</a></li>
-                <li><a href="/report">Report Issue</a></li>
-                <li><a href="/aboutus">About Us</a></li>    
-                <li><a href="/login">Login</a></li>
-            {% endif %}
-        </ul>
-    </nav>
+{% extends "base.html" %}
+
+{% block title %}
+    Data Entry - My Website
+{% endblock %}
+
+{% block content %}
     <h1>Data Entry</h1>
     <div class="parent-contain">
         <div class="form-container">
             <form action="/data_entry_submit" method="POST">
                 <label for="location">Location:</label>
-                <select id="location" name="location" required>
-                    <option value="New Delhi">New Delhi</option>
-                    <option value="Jalandhar">Jalandhar</option>
-                </select>
-                <br>
+                <input id="location" name="location" required type="text"><br>
                 <input type="hidden" id="compliance_type" name="compliance_type">
                 <label for="compliance_details">Compliance Details:</label>
                 <input type="text" id="compliance_details" name="compliance_details" required><br>
-                <select id="compliance_type" onchange="setComplianceTypeDropdown(this)">
+                <select id="compliance_type_dropdown" onchange="setComplianceTypeDropdown(this)">
                     <option value="">Select Compliance Type</option>
                     <option value="Air Pollution">Air Pollution</option>
                     <option value="Water Pollution">Water Pollution</option>
@@ -49,15 +26,10 @@
             </form>
         </div>
     </div>
-    <script>
-        function setComplianceTypeDropdown(select) {
-            var selectedOption = select.options[select.selectedIndex].value;
-            document.getElementById('compliance_type').value = selectedOption;
-        }
-    </script>
-</body>
-<footer>
-    ©️ 2024 Environmental Compliance Assessment
-</footer>
+{% endblock %}
 
-</html>
+{% block footer %}
+    <footer>
+        ©️ 2024 Environmental Compliance Assessment
+    </footer>
+{% endblock %}

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laws | Environmental Compliance</title>
+    <link rel="stylesheet" href="/static/style2.css"/>
+</head>
+<script>
+    window.onscroll = function() {scrollFunction()};
+
+    function scrollFunction() {
+        if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
+            document.getElementById("navbar").style.padding = "30px 10px";
+            document.getElementById("logo").style.fontSize = "25px";
+        } else {
+            document.getElementById("navbar").style.padding = "80px 10px";
+            document.getElementById("logo").style.fontSize = "35px";
+        }
+    }
+</script>
+<body>
+    <div id="navbar">
+        <a href="#default" id="logo">Environmental Compliance</a>
+        <div id="navbar-right">
+            <a href="/">Home</a>
+            {% if 'username' in session %}
+                <a href="/data_entry">Data Entry</a>
+                <a href="/dashboard">Dashboard</a>
+                <a href="/issues">Active Issues</a>
+                <a href="/laws">Environmental Laws</a>
+                <a href="/aboutus">About Us</a> 
+                <a href="/logout">Logout</a>
+            {% else %}
+                <a href="/data_display">Data Display</a>
+                <a href="/report">Report Issue</a>
+                <a href="/laws">Environmental Laws</a>
+                <a href="/aboutus">About Us</a>    
+                <a href="/login">Login</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="home">
+        <div class="bgimg-7">
+            <div class="caption">
+            <span class="border">Law 1: Clean Air Act</span>
+            <p style="color: rgb(0, 0, 0);">The Clean Air Act regulates air emissions from stationary and mobile sources and sets National Ambient Air Quality Standards (NAAQS) to protect public health and welfare from air pollution.</p>
+            </div>
+        </div>
+        <div style="color: #777;background-color:white;text-align:center;padding:50px 80px;text-align: justify;">
+            <h3 style="text-align:center;">Law 2: Clean Water Act</h3>
+            <p>The Clean Water Act regulates discharges of pollutants into the waters of the United States and aims to restore and maintain the chemical, physical, and biological integrity of the nation's waters.</p>
+        </div>
+        <div class="bgimg-2">
+            <div class="caption">
+            <span class="border">Law 3: Endangered Species Act</span>
+            <p style="color: white;">The Endangered Species Act aims to protect and recover imperiled species and the ecosystems upon which they depend. It provides for the conservation of endangered and threatened species of plants and animals and the habitats in which they are found.</p>
+            </div>
+        </div>
+        <div style="color: #777;background-color:white;text-align:center;padding:50px 80px;text-align: justify;">
+            <h3 style="text-align:center;">Law 4: National Environmental Policy Act (NEPA)</h3>
+            <p>The National Environmental Policy Act establishes a national policy for the environment and requires federal agencies to consider the environmental impacts of their proposed actions and involve the public in decision-making processes.</p>
+        </div>
+        <div class="bgimg-3">
+            <div class="caption">
+                <span class="border">Law 5: Resource Conservation and Recovery Act (RCRA)</span>
+                <p style="color: white;">The Resource Conservation and Recovery Act regulates the management and disposal of hazardous waste and non-hazardous solid waste, aiming to protect human health and the environment from the potential hazards of waste disposal.</p>
+            </div>
+        </div>
+        <div style="color: #777;background-color:white;text-align:center;padding:50px 80px;text-align: justify;">
+            <h3 style="text-align:center;">Law 6: Comprehensive Environmental Response, Compensation, and Liability Act (CERCLA)</h3>
+            <p>The Comprehensive Environmental Response, Compensation, and Liability Act, also known as Superfund, provides a federal program to clean up hazardous waste sites and hold responsible parties accountable for environmental contamination.</p>
+        </div>
+        <div class="bgimg-4">
+            <div class="caption">
+                <span class="border">Law 7: Toxic Substances Control Act (TSCA)</span>
+                <p style="color: white;">The Toxic Substances Control Act regulates the manufacture, distribution, use, and disposal of chemical substances to protect human health and the environment from unreasonable risks of injury posed by chemicals.</p>
+            </div>
+        </div>
+        <div style="color: #777;background-color:white;text-align:center;padding:50px 80px;text-align: justify;">
+            <h3 style="text-align:center;">Law 8: Marine Mammal Protection Act</h3>
+            <p>The Marine Mammal Protection Act protects marine mammals and their habitats and aims to maintain sustainable populations of marine mammals in the wild.</p>
+        </div>
+        <div class="bgimg-5">
+            <div class="caption">
+                <span class="border">Law 9: National Wildlife Refuge System Administration Act</span>
+                <p style="color: white;">The National Wildlife Refuge System Administration Act establishes a system of lands and waters for the conservation, management, and where appropriate, restoration of fish, wildlife, and plant resources and their habitats.</p>
+            </div>
+        </div>
+        <div style="color: #777;background-color:white;text-align:center;padding:50px 80px;text-align: justify;">
+            <h3 style="text-align:center;">Law 10: Safe Drinking Water Act</h3>
+            <p>The Safe Drinking Water Act regulates the quality of drinking water in the United States and aims to protect public health by ensuring the safety of drinking water supplies.<p>
+        </div>
+        <div class="bgimg-6">
+            <div class="caption">
+                <span class="border">Law 11: Federal Insecticide, Fungicide, and Rodenticide Act (FIFRA)</span>
+                <p style="color: white;">The Federal Insecticide, Fungicide, and Rodenticide Act regulates the sale, distribution, and use of pesticides to protect human health and the environment from potential risks associated with pesticide use.</p>
+            </div>
+        </div>
+
+    </div>      
+</body>
+</html>

@@ -1,30 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/style.css">
-    <title>Data Display</title>
-</head>
-<body>
-    <nav>
-        <ul>
-            <li><a href="/">Home</a></li>
-            {% if 'username' in session %}
-                <li><a href="/data_entry">Data Entry</a></li>
-                <li><a href="/data_display">Data Display</a></li>
-                <li><a href="/dashboard">Dashboard</a></li>
-                <li><a href="/issues">Active Issues</a></li>
-                <li><a href="/aboutus">About Us</a></li> 
-                <li><a href="/logout">Logout</a></li>
-            {% else %}
-                <li><a href="/data_display">Data Display</a></li>
-                <li><a href="/report">Report Issue</a></li>
-                <li><a href="/aboutus">About Us</a></li>    
-                <li><a href="/login">Login</a></li>
-            {% endif %}
-        </ul>
-    </nav>
+{% extends "base.html" %}
+
+{% block title %}
+    Data Display - My Website
+{% endblock %}
+
+{% block content %}
     <h1>Data Display</h1>
     <form action="/data_display" method="POST">
         <label for="category">Select Category:</label>
@@ -44,27 +24,31 @@
         <button type="submit">Display Data</button>
     </form>
 
-    <h2>Data for Location: {{ location }}</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Site Location</th>
-                <th>Compliance Type</th>
-                <th>Compliance Details</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for assessment in assessments %}
-            <tr>
-                <td>{{ assessment.site_location }}</td>
-                <td>{{ assessment.compliance_type }}</td>
-                <td>{{ assessment.compliance_details }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</body>
-<footer>
-    ©️ 2024 Environmental Compliance Assessment
-</footer>
-</html>
+    {% if assessments %}
+        <h2>Data for Location: {{ location }}</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Site Location</th>
+                    <th>Compliance Type</th>
+                    <th>Compliance Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for assessment in assessments %}
+                <tr>
+                    <td>{{ assessment.site_location }}</td>
+                    <td>{{ assessment.compliance_type }}</td>
+                    <td>{{ assessment.compliance_details }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}
+
+{% block footer %}
+    <footer>
+        ©️ 2024 Environmental Compliance Assessment
+    </footer>
+{% endblock %}
