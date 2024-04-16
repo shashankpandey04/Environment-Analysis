@@ -92,7 +92,7 @@ html, html {
     margin: auto;
     overflow: hidden;
     background-color: #f1f1f182;
-    padding: 90px 10px; /* Large padding which will shrink on scroll (using JS) */
+    padding: 80px 10px; /* Large padding which will shrink on scroll (using JS) */
     transition: 0.4s; /* Adds a transition effect when the padding is decreased */
     position: fixed; /* Sticky/fixed navbar */
     width: 100%;
@@ -111,7 +111,7 @@ html, html {
   }
   
   #navbar #logo {
-    font-size: 35px;
+    font-size: 20px;
     font-weight: bold;
     transition: 0.4s;
   }
@@ -127,7 +127,7 @@ html, html {
     float: right;
   }
   
-  @media screen and (max-width: 580px) {
+  @media screen and (max-width: 560px) {
     #navbar {
       padding: 20px 10px !important; 
     }
@@ -140,3 +140,8 @@ html, html {
       float: none;
     }
   }
+  .hr-pad {
+    padding: 20px;
+    height:100px;
+    color: rgba(0, 0, 0, 0);
+}

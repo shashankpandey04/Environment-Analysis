@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style2.css"/>
+    <title>Satellite Images</title>
+    <style>
+        .slideshow-container {
+            max-width: 600px;
+            position: relative;
+            margin: 20px auto;
+            border: 5px solid #000000;
+            border-radius: 10px;
+        }
+        
+        .mySlides {
+            display: none;
+        }
+        
+        img {
+            width: 100%;
+            height: auto;
+        }
+        
+        .text {
+            color: #f2f2f2;
+            font-size: 15px;
+            padding: 8px 12px;
+            position: absolute;
+            bottom: 8px;
+            width: fit-content;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -22px;
+            color: rgb(0, 0, 0);
+            font-weight: bold;
+            font-size: 20px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+        }
+        
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+        
+        .prev:hover, .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+        }
+
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+            padding-top: 60px;
+        }
+
+        /* Modal content */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto; /* 5% from the top, centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+            border-radius: 10px;
+        }
+
+        /* Close button */
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .button-centre {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .quick-link{
+            text-align: center;
+            display: block;
+        }
+    </style>
+</head>
+<script>
+    window.onscroll = function() {scrollFunction()};
+
+    function scrollFunction() {
+        if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
+            document.getElementById("navbar").style.padding = "30px 10px";
+            document.getElementById("logo").style.fontSize = "20px";
+        } else {
+            document.getElementById("navbar").style.padding = "80px 10px";
+            document.getElementById("logo").style.fontSize = "20px";
+        }
+    }
+</script>
+<body>
+    <div id="navbar">
+        <a href="#default" id="logo">Environmental Monitoring with Satellite Imagery & Remote Sensing</a>
+        <div id="navbar-right">
+            <a href="/">Home</a>
+            {% if 'username' in session %}
+                <a href="/data_entry">Data Entry</a>
+                <a href="/dashboard">Dashboard</a>
+                <a href="/issues">Active Issues</a>
+                <a href="/satellite-images">Satellite Images</a>
+                <a href="/logout">Logout</a>
+            {% else %}
+                <a href="/report">Report Issue</a>
+                <a href="/satellite-images">Satellite Images</a>
+                <a href="/login">Login</a>
+            {% endif %}
+            <a href="/aboutus">About Us</a>
+        </div>
+    </div>
+    <div style="margin: 200px auto;"></div>
+    <h1 style="color: black; text-align: center;">Green Carpet Satellite Imagery</h1>
+    <p style="color: black; text-align: center;">Quick Links</p>
+    <a href="{{url_for('temp')}}" style="text-align: center;" class="quick-link">Temperature</a>
+    <a href="{{url_for('vegitation')}}" class="quick-link">Green Carpet</a>
+    <a href="{{url_for('rain')}}" class="quick-link">Rainfall</a>
+    <a href="{{url_for('soil')}}" class="quick-link">Soil Moisture</a>
+
+    <img src="/static/veg/meter.png" style="width: auto; height: 40px;">
+    <div class="slideshow-container" id="slideshow1">
+        <div class="mySlides">
+            <img src="/static/veg/jan2019.png" style="width:600px; height:400px;">
+            <div class="text">January 2019</div>
+        </div>
+
+        <div class="mySlides">
+            <img src="/static/veg/june2019.png" style="width:600px; height:400px;">
+            <div class="text">June 2019</div>
+        </div>
+
+        <div class="mySlides">
+            <img src="/static/veg/aug2019.png" style="width:600px; height:400px;">
+            <div class="text">August 2019</div>
+        </div>
+
+        <div class="mySlides">
+            <img src="/static/veg/nov2019.png   " style="width:600px; height:400px;">
+            <div class="text">November 2019</div>
+        </div>
+        <a class="prev" onclick="plusSlides('slideshow1', -1)">&#10094;</a>
+        <a class="next" onclick="plusSlides('slideshow1', 1)">&#10095;</a>
+    </div>
+    <button onclick="openModal('modal2019')">2019 Report</button>
+    <div id="modal2019" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modal2019')">&times;</span>
+            <p><strong>Forest Cover</strong> Forest Cover (Area-wise) : Madhya Pradesh> Arunachal Pradesh> Chhattisgarh> Odisha> Maharashtra.
+                Forest Cover (Percentage): Mizoram (85.4%)> Arunachal Pradesh (79.63%)> Meghalaya (76.33%)</p>
+            <p><strong>Increase in Forest Cover</strong> The country’s forest cover includes all patches of land with a tree canopy density of more than 10% and more than 1 hectare in area, irrespective of land use, ownership and species of trees.
+                The total forest cover of the country is 7,12,249 sq km which is 21.67% of the geographical area of the country.
+                The top five states to have shown an increase in forest cover include Karnataka (1,025 sq km) > Andhra Pradesh (990 sq km) > Kerala (823 sq km) > J&K (371 sq km) > Himachal Pradesh (334 sq km).
+            </p>
+            <p><strong>Decline of Forest Cover in North Eastern Region</strong> Total forest cover in the North Eastern region is 1,70,541 sq km, which is 65.05% of its geographical area.
+                There has been a decrease of forest cover to the extent of 765 sq km (0.45%) in the region. Except Assam and Tripura, all the States in the region show decrease in forest cover.
+            </p>
+            <p><strong>Forest Cover in Tribal Districts</strong> The total forest cover in the tribal districts is 4,22,351 sq km, which is 37.54% of the geographical area of these districts.
+                There has been a decrease of 741 sq km of forest cover within the Recorded Forest Area/ Green Wash (RFA/GW) in the tribal districts and an increase of 1,922 sq km outside.
+                There has been a decline in tree cover inside forests due to tribal populations getting “land titles” (patta) and there has been a rise in trees outside the forest area due to an increase in tree plantation and afforestation activities.
+            </p>
+            <p><strong>Increase in the tree cover</strong> Tree cover comprises of tree patches of size less than 1 hectare occurring outside the recorded forest area.
+                The tree cover of the country is estimated as 95,027 sq km which is 2.89% of the geographical area.
+                Maharashtra has had the highest increase in tree cover and a large part of that is due to horticulture.
+            </p>
+            <p><strong>In comparison to 2017</strong> The 2019 survey has found an increase of 5,188 sq km in total forest and tree cover in the country.
+                Tree and forest cover together made up 24.56% (8,07,276 sq km) of India's area. In the last assessment it was 24.39%.
+                The nations tree and forest cover has largely hovered from 21-25% and is short of the National Forest Policy, 1988, which envisages 33% to be under such cover.
+            </p>
+            <p>Mangrove cover in the country has increased by 54 sq km (1.10%) as compared to the previous assessment.</p>
+            <p><strong>Carbon Stock</strong> The total carbon stock of the country was estimated at 7124 million tons, which is an increase of 42.6 million tons from the last assessment.
+                It implies that India is on the right track to achieve its Paris Agreement commitment of 2.5 -3 billion carbon sinks.
+            </p>
+        </div>
+    </div>
+    <img src="/static/veg/meter.png" style="width: auto; height: 40px;">
+    <div class="slideshow-container" id="slideshow2">
+        <div class="mySlides">
+            <img src="/static/veg/jan2020.png" style="width:600px; height:400px;">
+            <div class="text">January 2020</div>
+        </div>
+
+        <div class="mySlides">
+            <img src="/static/veg/june2020.png" style="width:600px; height:400px;">
+            <div class="text">June 2020</div>
+        </div>
+
+        <div class="mySlides">
+            <img src="/static/veg/aug2020.png" style="width:600px; height:400px;">
+            <div class="text">August 2020</div>
+        </div>
+
+        <div class="mySlides">
+            <img src="/static/veg/nov2020.png" style="width:600px; height:400px;">
+            <div class="text">November 2020</div>
+        </div>
+        <a class="prev" onclick="plusSlides('slideshow2', -1)">&#10094;</a>
+        <a class="next" onclick="plusSlides('slideshow2', 1)">&#10095;</a>
+    </div>
+    <img src="/static/veg/meter.png" style="width: auto; height: 40px;">
+    <div class="slideshow-container" id="slideshow3">
+        <div class="mySlides">
+            <img src="/static/veg/jan2021.png" style="width:600px; height:400px;">
+            <div class="text">January 2021</div>
+        </div>
+
+        <div class="mySlides">
+            <img src="/static/veg/june2021.png" style="width:600px; height:400px;">
+            <div class="text">June 2021</div>
+        </div>
+
+        <div class="mySlides">
+            <img src="/static/veg/aug2021.png" style="width:600px; height:400px;">
+            <div class="text">August 2021</div>
+        </div>
+
+        <div class="mySlides">
+            <img src="/static/veg/nov2021.png" style="width:600px; height:400px;">
+            <div class="text">November 2021</div>
+        </div>
+
+        <a class="prev" onclick="plusSlides('slideshow3', -1)">&#10094;</a>
+        <a class="next" onclick="plusSlides('slideshow3', 1)">&#10095;</a>
+    </div>
+    <button onclick="openModal('modal2021')">2021 Report</button>
+    <div id="modal2021" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modal2021')">&times;</span>
+            <p><strong>About</strong>
+                It is an assessment of Indias forest and tree cover, published every two years by the Forest Survey of India.
+                The first survey was published in 1987, and ISFR 2021 is the 17th.
+                India is one of the few countries in the world that brings out such a survey every two years, and this is widely considered comprehensive and robust.
+                The ISFR is used in planning and formulation of policies in forest management as well as forestry and agroforestry sectors.
+                Three categories of forests are surveyed very dense forests (canopy density over 70%), moderately dense forests (40-70%) and open forests (10-40%).
+                Scrubs (canopy density less than 10%) are also surveyed but not categorised as forests.</p>
+            <p><strong>New Features of ISFR 2021:</strong>It has for the first time assessed forest cover in tiger reserves, tiger corridors and the Gir forest which houses the Asiatic lion.
+                The forest cover in tiger corridors has increased by 37.15 sq km (0.32%) between 2011-2021, but decreased by 22.6 sq km (0.04%) in tiger reserves.
+                Forest cover has increased in 20 tiger reserves in these 10 years, and decreased in 32.
+                Buxa (West Bengal), Anamalai (Tamil Nadu) and Indravati reserves (Chhattisgarh) have shown an increase in forest cover while the highest losses have been found in Kawal (Telangana), Bhadra (Karnataka) and the Sunderbans reserves (West Bengal).
+                Pakke Tiger Reserve in Arunachal Pradesh has the highest forest cover, at nearly 97%.</p>
+            <p><strong>Findings of the Report:</strong>
+                1. Increment in Area:
+                The forest and tree cover in the country continues to increase with an additional cover of 1,540 square kilometres over the past two years.
+                Indias forest cover is now 7,13,789 square kilometres, 21.71% of the countrys geographical area, an increase from 21.67% in 2019.
+                Tree cover has increased by 721 sq km.
+                Tree cover is defined as all tree patches of size less than one hectare occurring outside the recorded forest area. This covers trees in all formations including scattered trees.</p>
+                <p>Increase/Decrease in Forests:
+                    The states that have shown the highest increase in forest cover are Telangana (3.07%), Andhra Pradesh (2.22%) and Odisha (1.04%).
+                    Five states in the Northeast > Arunachal Pradesh, Manipur, Meghalaya, Mizoram and Nagaland have all shown loss in forest cover.
+                </p>
+                <p>States with Highest Forest Area/Cover:
+                    Area-wise: Madhya Pradesh has the largest forest cover in the country followed by Arunachal Pradesh, Chhattisgarh, Odisha and Maharashtra.
+                    In terms of forest cover as percentage of total geographical area, the top five States are Mizoram, Arunachal Pradesh, Meghalaya, Manipur and Nagaland.
+                    The term 'forest area' denotes the legal status of the land as per the government records, whereas the term 'forest cover' indicates presence of trees over any land.</p>
+                <p>
+                    Mangroves:
+                    Mangroves have shown an increase of 17 sq km. Indias total mangrove cover is now 4,992 sq km.
+                </p>
+                <p><strong>Concerns:</strong></p>
+                <p>Decline in Natural Forests:
+                    There is a 1,582 sq km decline in moderately dense forests, or “natural forests”.
+                    The decline, in conjunction with an increase of 2,621 sq km in open forest areas  shows a degradation of forests in the country.
+                    Also, scrub area has increased by 5,320 sq km  indicating the complete degradation of forests in these areas.
+                    Very dense forests have increased by 501 sq km.</p>
+                <p>Decline in Northeast Forest Cover:
+                    The forest cover in the region has shown an overall decline of 1,020 sq km in forest cover.
+                    The Northeast states account for 7.98% of total geographical area but 23.75% of total forest cover.
+                    The decline in the Northeastern states has been attributed to a spate of natural calamities, particularly landslides and heavy rains, in the region as well as to anthropogenic activities such as shifting agriculture, pressure of developmental activities and felling of trees.
+                    </p>
+            </div>
+    </div>
+    <img src="/static/veg/meter.png" style="width: auto; height: 40px;">
+    <div class="slideshow-container" id="slideshow4">
+        <div class="mySlides">
+            <img src="/static/veg/jan2022.png" style="width:600px; height:400px;">
+            <div class="text">January 2022</div>
+        </div>
+
+        <div class="mySlides">
+            <img src="/static/veg/june2022.png" style="width:600px; height:400px;">
+            <div class="text">June 2022</div>
+        </div>
+
+        <div class="mySlides">
+            <img src="/static/veg/aug2022.png" style="width:600px; height:400px;">
+            <div class="text">August 2022</div>
+        </div>
+
+        <div class="mySlides">
+            <img src="/static/veg/nov2022.png" style="width:600px; height:400px;">
+            <div class="text">November 2022</div>
+        </div>
+
+        <a class="prev" onclick="plusSlides('slideshow4', -1)">&#10094;</a>
+        <a class="next" onclick="plusSlides('slideshow4', 1)">&#10095;</a>
+    </div>
+    <img src="/static/veg/meter.png" style="width: auto; height: 40px;">
+    <div class="slideshow-container" id="slideshow5">
+        <div class="mySlides">
+            <img src="/static/veg/jan2023.png" style="width:600px; height:400px;">
+            <div class="text">January 2023</div>
+        </div>
+
+        <div class="mySlides">
+            <img src="/static/veg/june2023.png" style="width:600px; height:400px;">
+            <div class="text">June 2023</div>
+        </div>
+
+        <div class="mySlides">
+            <img src="/static/veg/aug2023.png" style="width:600px; height:400px;">
+            <div class="text">August 2023</div>
+        </div>
+
+        <div class="mySlides">
+            <img src="/static/veg/nov2023.png" style="width:600px; height:400px;">
+            <div class="text">November 2023</div>
+        </div>
+
+        <a class="prev" onclick="plusSlides('slideshow5', -1)">&#10094;</a>
+        <a class="next" onclick="plusSlides('slideshow5', 1)">&#10095;</a>
+    </div>
+    <button onclick="openModal('modal2023')">2023 Report</button>
+    <div id="modal2023" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modal2023')">&times;</span>
+            <p>Forest Survey of India (FSI), Dehradun, an organization under the Ministry carries out the assessment of forest cover biennially, since 1987 and the findings are published in India State of Forest Report (ISFR). As per latest ISFR 2021, the total forest cover of the country is 7,13,789 square kilometer which is 21.71% of the geographical area of the country. The forest cover has increased by 1,540 square kilometer between ISFR 2019 and ISFR 2021 assessment. The State/UTs wise details of forest cover as per ISFR 2021 are given in Annexure.
+                <br>
+                To protect and improve the forest cover in the country, afforestation and tree plantation activities are undertaken by States/UTs. The Ministry provides financial assistance to States/UTs under various Centrally Sponsored Schemes namely Green India Mission (GIM) to support and supplement the efforts of States and Union Territories. GIM activities were started in the Financial Year 2015-16. During the last five years, the amount of Rs. 755.68 Crores has been released to seventeen States and one union territory for taking up the afforestation activities.
+                <br>
+                The Ministry has also implemented Centrally Sponsored Scheme, National Afforestation programme for regeneration of degraded forest and adjoining areas in the country.Under the scheme, an amount of Rs. 108.57 crore has been released during the years 2019-20 to 2021-22. National Afforestation Programme is now stands merged with Green India Mission.
+                <br>
+                The Ministry is implementing Nagar Van Yojana (NVY) since the year 2020 which envisages creation of 600 Nagar Vans and 400 Nagar Vatika in the country during the period 2020-21 to 2024-25 under the funds available under Compensatory Afforestation Fund (CAMPA). The Nagar Van Yojana aims to enhance the green cover in the urban and peri-urban areas including biological diversity, provide ecological benefits and improve the quality of life of city dwellers. So far, the Ministry has approved 270 projects under Nagar Van Yojana with the total cost of Rs.238.64 Crore.</p>
+        </div>
+    </div>
+    <div class="slideshow-container" id="slideshow6">
+        <div class="mySlides">
+            <img src="/static/veg/jan2024.png" style="width:600px; height:400px;">
+            <div class="text">January 2024</div>
+        </div>
+
+        <div class="mySlides">
+            <img src="/static/veg/april2024.png" style="width:600px; height:400px;">
+            <div class="text">April 2024</div>
+        </div>
+
+        <a class="prev" onclick="plusSlides('slideshow6', -1)">&#10094;</a>
+        <a class="next" onclick="plusSlides('slideshow6', 1)">&#10095;</a>
+    </div>
+    <script>
+        function plusSlides(slideshowId, n) {
+            showSlides(slideshowId, slideIndex[slideshowId] += n);
+        }
+
+        var slideIndex = {
+            'slideshow1': 1,
+            'slideshow2': 1,
+            'slideshow3': 1,
+            'slideshow4': 1,
+            'slideshow5': 1,
+            'slideshow6': 1
+        };
+        
+        showSlides('slideshow1', slideIndex['slideshow1']);
+        showSlides('slideshow2', slideIndex['slideshow2']);
+        showSlides('slideshow3', slideIndex['slideshow3']);
+        showSlides('slideshow4', slideIndex['slideshow4']);
+        showSlides('slideshow5', slideIndex['slideshow5']);
+        showSlides('slideshow6', slideIndex['slideshow6']);
+
+        function showSlides(slideshowId, n) {
+            var i;
+            var slides = document.querySelectorAll('#' + slideshowId + ' .mySlides');
+            if (n > slides.length) { slideIndex[slideshowId] = 1 }
+            if (n < 1) { slideIndex[slideshowId] = slides.length }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = 'none';
+            }
+            slides[slideIndex[slideshowId] - 1].style.display = 'block';
+        }
+
+        window.onscroll = function() {scrollFunction()};
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
+                document.getElementById("navbar").style.padding = "30px 10px";
+                document.getElementById("logo").style.fontSize = "20px";
+            } else {
+                document.getElementById("navbar").style.padding = "80px 10px";
+                document.getElementById("logo").style.fontSize = "20px";
+            }
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = "block";
+        }
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = "none";
+        }
+    </script>
+</body>
+</html>

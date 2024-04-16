@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style2.css"/>
+    <title>Satellite Images</title>
+    <style>
+        .slideshow-container {
+            max-width: 600px;
+            position: relative;
+            margin: 20px auto;
+            border: 5px solid #000000;
+            border-radius: 10px;
+        }
+        
+        .mySlides {
+            display: none;
+        }
+        
+        img {
+            width: 100%;
+            height: auto;
+        }
+        
+        .text {
+            color: #f2f2f2;
+            font-size: 15px;
+            padding: 8px 12px;
+            position: absolute;
+            bottom: 8px;
+            width: fit-content;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -22px;
+            color: rgb(0, 0, 0);
+            font-weight: bold;
+            font-size: 20px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+        }
+        
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+        
+        .prev:hover, .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+        }
+
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+            padding-top: 60px;
+        }
+
+        /* Modal content */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto; /* 5% from the top, centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+            border-radius: 10px;
+        }
+
+        /* Close button */
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .button-centre {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .quick-link{
+            text-align: center;
+            display: block;
+        }
+    </style>
+</head>
+<script>
+    window.onscroll = function() {scrollFunction()};
+
+    function scrollFunction() {
+        if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
+            document.getElementById("navbar").style.padding = "30px 10px";
+            document.getElementById("logo").style.fontSize = "20px";
+        } else {
+            document.getElementById("navbar").style.padding = "80px 10px";
+            document.getElementById("logo").style.fontSize = "20px";
+        }
+    }
+</script>
+<body>
+    <div id="navbar">
+        <a href="#default" id="logo">Environmental Monitoring with Satellite Imagery & Remote Sensing</a>
+        <div id="navbar-right">
+            <a href="/">Home</a>
+            {% if 'username' in session %}
+                <a href="/data_entry">Data Entry</a>
+                <a href="/dashboard">Dashboard</a>
+                <a href="/issues">Active Issues</a>
+                <a href="/satellite-images">Satellite Images</a>
+                <a href="/logout">Logout</a>
+            {% else %}
+                <a href="/report">Report Issue</a>
+                <a href="/satellite-images">Satellite Images</a>
+                <a href="/login">Login</a>
+            {% endif %}
+            <a href="/aboutus">About Us</a>
+        </div>
+    </div>
+    <div style="margin: 200px auto;"></div>
+    <h1 style="color: black; text-align: center;">Temperature Satellite Imagery</h1>
+    <p style="color: black; text-align: center;">Quick Links</p>
+    <a href="{{url_for('temp')}}" style="text-align: center;" class="quick-link">Temperature</a>
+    <a href="{{url_for('vegitation')}}" class="quick-link">Green Carpet</a>
+    <a href="{{url_for('rain')}}" class="quick-link">Rainfall</a>
+    <a href="{{url_for('soil')}}" class="quick-link">Soil Moisture</a>
+    <div class="slideshow-container" id="slideshow1">
+        <div class="mySlides">
+            <img src="/static/temp/jan2021.png" style="width:600px; height:400px;">
+            <div class="text">January 2021</div>
+        </div>
+
+        <div class="mySlides">
+            <img src="/static/temp/june2021.png" style="width:600px; height:400px;">
+            <div class="text">June 2021</div>
+        </div>
+
+        <div class="mySlides">
+            <img src="/static/temp/aug2021.png" style="width:600px; height:400px;">
+            <div class="text">August 2021</div>
+        </div>
+        <a class="prev" onclick="plusSlides('slideshow1', -1)">&#10094;</a>
+        <a class="next" onclick="plusSlides('slideshow1', 1)">&#10095;</a>
+    </div>
+    <p>The annual mean temperature for the country was +0.44 °C above the 1981-2010 average, thus making the year 2021 as the fifth warmest year on record since 1901. The other 4 warmest years on record in order were: 2016 (anomaly +0.71 °C), 2009 (0.55 °C), 2017 (0.54 °C), 2010 (+0.539 °C).</p>
+    <div class="slideshow-container" id="slideshow2">
+        <div class="mySlides">
+            <img src="/static/temp/jan2022.png" style="width:600px; height:400px;">
+            <div class="text">January 2022</div>
+        </div>
+
+        <div class="mySlides">
+            <img src="/static/temp/june2022.png" style="width:600px; height:400px;">
+            <div class="text">June 2022</div>
+        </div>
+
+        <div class="mySlides">
+            <img src="/static/temp/aug2022.png" style="width:600px; height:400px;">
+            <div class="text">August 2022</div>
+        </div>
+        <a class="prev" onclick="plusSlides('slideshow2', -1)">&#10094;</a>
+        <a class="next" onclick="plusSlides('slideshow2', 1)">&#10095;</a>
+    </div>
+    <p>During 2022, the average temperature recorded in India was 26 degrees Celsius, a slight increase from the 25.9 degrees Celsius recorded in the previous year. This represented the highest average temperature recorded in the South Asian country since 2017.</p>
+    <div class="slideshow-container" id="slideshow3">
+        <div class="mySlides">
+            <img src="/static/temp/jan2023.png" style="width:600px; height:400px;">
+            <div class="text">January 2023</div>
+        </div>
+
+        <div class="mySlides">
+            <img src="/static/temp/june2023.png" style="width:600px; height:400px;">
+            <div class="text">June 2023</div>
+        </div>
+
+        <div class="mySlides">
+            <img src="/static/temp/aug2023.png" style="width:600px; height:400px;">
+            <div class="text">August 2023</div>
+        </div>
+        <a class="prev" onclick="plusSlides('slideshow3', -1)">&#10094;</a>
+        <a class="next" onclick="plusSlides('slideshow3', 1)">&#10095;</a>
+    </div>
+    <p>The year 2023 was the second warmest on record in India, with a temperature anomaly of 0.65°C above the long-term average. Thunderstorms and lightning caused over 50% of the 2,376 human casualties due to extreme weather events.</p>
+    <div class="slideshow-container" id="slideshow4">
+        <div class="mySlides">
+            <img src="/static/temp/jan2024.png" style="width:600px; height:400px;">
+            <div class="text">January 2024</div>
+        </div>
+
+        <div class="mySlides">
+            <img src="/static/temp/april2024.png" style="width:600px; height:400px;">
+            <div class="text">April 2024</div>
+        </div>
+        <a class="prev" onclick="plusSlides('slideshow4', -1)">&#10094;</a>
+        <a class="next" onclick="plusSlides('slideshow4', 1)">&#10095;</a>
+    </div>
+    <p>Summers 2024: IMD Director General Mrutyunjay Mohapatra said India is likely to see above-normal maximum and minimum temperatures in most parts of the country during the “Hot Weather Season 2024” between March and May 2024.</p>
+    <script>
+        function plusSlides(slideshowId, n) {
+            showSlides(slideshowId, slideIndex[slideshowId] += n);
+        }
+
+        var slideIndex = {
+            'slideshow1': 1,
+            'slideshow2': 1,
+            'slideshow3': 1,
+            'slideshow4': 1
+        };
+        
+        showSlides('slideshow1', slideIndex['slideshow1']);
+        showSlides('slideshow2', slideIndex['slideshow2']);
+        showSlides('slideshow3', slideIndex['slideshow3']);
+        showSlides('slideshow4', slideIndex['slideshow4']);
+
+        function showSlides(slideshowId, n) {
+            var i;
+            var slides = document.querySelectorAll('#' + slideshowId + ' .mySlides');
+            if (n > slides.length) { slideIndex[slideshowId] = 1 }
+            if (n < 1) { slideIndex[slideshowId] = slides.length }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = 'none';
+            }
+            slides[slideIndex[slideshowId] - 1].style.display = 'block';
+        }
+
+        window.onscroll = function() {scrollFunction()};
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
+                document.getElementById("navbar").style.padding = "30px 10px";
+                document.getElementById("logo").style.fontSize = "20px";
+            } else {
+                document.getElementById("navbar").style.padding = "80px 10px";
+                document.getElementById("logo").style.fontSize = "20px";
+            }
+        }
+    </script>
+</body>
+</html>

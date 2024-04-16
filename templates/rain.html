@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style2.css"/>
+    <title>Satellite Images</title>
+    <style>
+        .slideshow-container {
+            max-width: 600px;
+            position: relative;
+            margin: 20px auto;
+            border: 5px solid #000000;
+            border-radius: 10px;
+        }
+        
+        .mySlides {
+            display: none;
+        }
+        
+        img {
+            width: 100%;
+            height: auto;
+        }
+        
+        .text {
+            color: #f2f2f2;
+            font-size: 15px;
+            padding: 8px 12px;
+            position: absolute;
+            bottom: 8px;
+            width: fit-content;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -22px;
+            color: rgb(0, 0, 0);
+            font-weight: bold;
+            font-size: 20px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+        }
+        
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+        
+        .prev:hover, .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+        }
+
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+            padding-top: 60px;
+        }
+
+        /* Modal content */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto; /* 5% from the top, centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+            border-radius: 10px;
+        }
+
+        /* Close button */
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .button-centre {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .quick-link{
+            text-align: center;
+            display: block;
+        }
+    </style>
+</head>
+<script>
+    window.onscroll = function() {scrollFunction()};
+
+    function scrollFunction() {
+        if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
+            document.getElementById("navbar").style.padding = "30px 10px";
+            document.getElementById("logo").style.fontSize = "20px";
+        } else {
+            document.getElementById("navbar").style.padding = "80px 10px";
+            document.getElementById("logo").style.fontSize = "20px";
+        }
+    }
+</script>
+<body>
+    <div id="navbar">
+        <a href="#default" id="logo">Environmental Monitoring with Satellite Imagery & Remote Sensing</a>
+        <div id="navbar-right">
+            <a href="/">Home</a>
+            {% if 'username' in session %}
+                <a href="/data_entry">Data Entry</a>
+                <a href="/dashboard">Dashboard</a>
+                <a href="/issues">Active Issues</a>
+                <a href="/satellite-images">Satellite Images</a>
+                <a href="/logout">Logout</a>
+            {% else %}
+                <a href="/report">Report Issue</a>
+                <a href="/satellite-images">Satellite Images</a>
+                <a href="/login">Login</a>
+            {% endif %}
+            <a href="/aboutus">About Us</a>
+        </div>
+    </div>
+    <div style="margin: 200px auto;"></div>
+    <h1 style="color: black; text-align: center;">Rainfall Measurement Satellite Imagery</h1>
+    <p style="color: black; text-align: center;">Quick Links</p>
+    <a href="{{url_for('temp')}}" style="text-align: center;" class="quick-link">Temperature</a>
+    <a href="{{url_for('vegitation')}}" class="quick-link">Green Carpet</a>
+    <a href="{{url_for('rain')}}" class="quick-link">Rainfall</a>
+    <a href="{{url_for('soil')}}" class="quick-link">Soil Moisture</a>
+    <div class="slideshow-container" id="slideshow1">
+        <div class="mySlides">
+            <img src="/static/rain/jan2021.png" style="width:600px; height:400px;">
+            <div class="text">January 2021</div>
+        </div>
+
+        <div class="mySlides">
+            <img src="/static/rain/june2021.png" style="width:600px; height:400px;">
+            <div class="text">June 2021</div>
+        </div>
+
+        <div class="mySlides">
+            <img src="/static/rain/aug2021.png" style="width:600px; height:400px;">
+            <div class="text">August 2021</div>
+        </div>
+        <a class="prev" onclick="plusSlides('slideshow1', -1)">&#10094;</a>
+        <a class="next" onclick="plusSlides('slideshow1', 1)">&#10095;</a>
+    </div>
+    <p>In the just concluded South West Monsoon 2021, India received 874.6 mm rainfall, about 99.32% of the Normal SW Monsoon rainfall or just 0.68% less than the normal SW Monsoon rainfall of 880.6 mm as per India Meteorological department. This rainfall will now be categorised as normal rainfall though till the beginning of Sept 2021, the rainfall at national level was 10% below normal. The massive 34.96% surplus rainfall in Sept 2021, thanks to a number of circulations contributed from the Bay of Bengal, ending with Cyclone Gulab and now possibly Cyclone Shaheen has contributed to wipe out the deficit.</p>
+    <div class="slideshow-container" id="slideshow2">
+        <div class="mySlides">
+            <img src="/static/rain/jan2022.png" style="width:600px; height:400px;">
+            <div class="text">January 2022</div>
+        </div>
+
+        <div class="mySlides">
+            <img src="/static/rain/june2022.png" style="width:600px; height:400px;">
+            <div class="text">June 2022</div>
+        </div>
+
+        <div class="mySlides">
+            <img src="/static/rain/aug2022.png" style="width:600px; height:400px;">
+            <div class="text">August 2022</div>
+        </div>
+        <a class="prev" onclick="plusSlides('slideshow2', -1)">&#10094;</a>
+        <a class="next" onclick="plusSlides('slideshow2', 1)">&#10095;</a>
+    </div>
+    <p>Throughout 2022, the monthly rainfall recorded in India was the highest in July, at over 327 millimeters. On the other hand, the driest month that year was March, with some 8.9 millimeters of rainfall measured across the country.</p>
+    <div class="slideshow-container" id="slideshow3">
+        <div class="mySlides">
+            <img src="/static/rain/jan2023.png" style="width:600px; height:400px;">
+            <div class="text">January 2023</div>
+        </div>
+
+        <div class="mySlides">
+            <img src="/static/rain/june2023.png" style="width:600px; height:400px;">
+            <div class="text">June 2023</div>
+        </div>
+
+        <div class="mySlides">
+            <img src="/static/rain/aug2023.png" style="width:600px; height:400px;">
+            <div class="text">August 2023</div>
+        </div>
+        <a class="prev" onclick="plusSlides('slideshow3', -1)">&#10094;</a>
+        <a class="next" onclick="plusSlides('slideshow3', 1)">&#10095;</a>
+    </div>
+    <p>India received "below-average" cumulative rainfall -- 820 mm compared to the long-period average of 868.6 mm -- in 2023, an El Nino year. Before 2023, India recorded "normal" and "above-normal" rainfall in the monsoon season for four years in a row.</p>
+    <div class="slideshow-container" id="slideshow4">
+        <div class="mySlides">
+            <img src="/static/rain/jan2024.png" style="width:600px; height:400px;">
+            <div class="text">January 2024</div>
+        </div>
+
+        <div class="mySlides">
+            <img src="/static/rain/april2024.png" style="width:600px; height:400px;">
+            <div class="text">April 2024</div>
+        </div>
+        <a class="prev" onclick="plusSlides('slideshow4', -1)">&#10094;</a>
+        <a class="next" onclick="plusSlides('slideshow4', 1)">&#10095;</a>
+    </div>
+    <p>The monsoon rains are seen at 106 per cent of long-term average in 2024. "India is likely to see above-normal monsoon with cumulative rainfall estimated at 106 per cent of long-period average of 87 cm," IMD said.</p>
+    <script>
+        function plusSlides(slideshowId, n) {
+            showSlides(slideshowId, slideIndex[slideshowId] += n);
+        }
+
+        var slideIndex = {
+            'slideshow1': 1,
+            'slideshow2': 1,
+            'slideshow3': 1,
+            'slideshow4': 1
+        };
+        
+        showSlides('slideshow1', slideIndex['slideshow1']);
+        showSlides('slideshow2', slideIndex['slideshow2']);
+        showSlides('slideshow3', slideIndex['slideshow3']);
+        showSlides('slideshow4', slideIndex['slideshow4']);
+
+        function showSlides(slideshowId, n) {
+            var i;
+            var slides = document.querySelectorAll('#' + slideshowId + ' .mySlides');
+            if (n > slides.length) { slideIndex[slideshowId] = 1 }
+            if (n < 1) { slideIndex[slideshowId] = slides.length }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = 'none';
+            }
+            slides[slideIndex[slideshowId] - 1].style.display = 'block';
+        }
+
+        window.onscroll = function() {scrollFunction()};
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
+                document.getElementById("navbar").style.padding = "30px 10px";
+                document.getElementById("logo").style.fontSize = "20px";
+            } else {
+                document.getElementById("navbar").style.padding = "80px 10px";
+                document.getElementById("logo").style.fontSize = "20px";
+            }
+        }
+    </script>
+</body>
+</html>

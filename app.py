@@ -71,10 +71,6 @@ def dashboard():
     else:
         return render_template("unauth.html")
 
-@app.route('/laws')
-def laws():
-    return render_template('laws.html')
-
 @app.route('/issues')
 def issues():
     if 'username' in session:
@@ -140,16 +136,13 @@ def data_display():
 
     return render_template('data_display.html', category=category, location=location, locations=locations, assessments=assessments)
 
-@app.route('/aboutus')
-def aboutus():
-    return render_template('aboutus.html')
 
 def send_mailtrap_email(receiver_email, ticket_id, location, issue_type, description, contact):
     sender_email = "mailtrap@demomailtrap.com"
     smtp_server = "live.smtp.mailtrap.io"
     smtp_port = 587
     smtp_username = "api"
-    smtp_password = "token"
+    smtp_password = "e12aae311c338770c720474e01f9d387"
     message = MIMEMultipart()
     message["From"] = sender_email
     message["To"] = receiver_email
@@ -189,6 +182,30 @@ def report_issue():
 @app.route("/ticket_created/<ticket_id>")
 def ticket_created(ticket_id,mail_id):
     return render_template('ticket_created.html', ticket_id=ticket_id,mail_id=mail_id)
+
+@app.route("/satellite-images")
+def satellite_images():
+    return render_template('satellite_images.html')
+
+@app.route('/vegitation')
+def vegitation():
+    return render_template('vegitation.html')
+
+@app.route("/temp")
+def temp():
+    return render_template('temp.html')
+
+@app.route("/rain")
+def rain():
+    return render_template('rain.html')
+
+@app.route('/soil')
+def soil():
+    return render_template('soil.html')
+
+@app.route('/aboutus')
+def aboutus():
+    return render_template('aboutus.html')
 
 @app.errorhandler(404)
 def page_not_found(e):

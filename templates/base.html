@@ -8,23 +8,21 @@
 </head>
 <body>
     <div id="navbar">
-        <a href="#default" id="logo">Environmental Compliance</a>
+        <a href="#default" id="logo">Environmental Monitoring with Satellite Imagery & Remote Sensing</a>
         <div id="navbar-right">
             <a href="/">Home</a>
             {% if 'username' in session %}
                 <a href="/data_entry">Data Entry</a>
                 <a href="/dashboard">Dashboard</a>
                 <a href="/issues">Active Issues</a>
-                <a href="/laws">Environmental Laws</a>
-                <a href="/aboutus">About Us</a> 
+                <a href="/satellite-images">Satellite Images</a>
                 <a href="/logout">Logout</a>
             {% else %}
-                <a href="/data_display">Data Display</a>
                 <a href="/report">Report Issue</a>
-                <a href="/laws">Environmental Laws</a>
-                <a href="/aboutus">About Us</a>    
+                <a href="/satellite-images">Satellite Images</a>
                 <a href="/login">Login</a>
             {% endif %}
+            <a href="/aboutus">About Us</a>
         </div>
     </div>
     <hr class="hr-pad">
